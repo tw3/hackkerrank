@@ -92,7 +92,6 @@ function updateCountArr(countArr, removeExp, newDayExp) {
     }
     countArr[removeExp]--;
     countArr[newDayExp]++;
-    return;
 }
 
 function main() {
