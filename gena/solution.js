@@ -89,7 +89,7 @@ class TowerSolver {
           console.log('possible towers for rod ', rodNum);
           possibleTowers.forEach(possibleTower => console.log("  ", currentTower, "->", possibleTower));
         }
-      // Add the possible towers to the end of the queue
+        // Add the possible towers to the end of the queue
         towerQueue.push(...possibleTowers);
       }
     }
