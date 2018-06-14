@@ -163,8 +163,8 @@ class TowerSolver {
   isTowerRestored(tower) {
     // Things are restored when disc 1 has all discs
     const rod1Discs = tower[1];
-    const result = (rod1Discs.length === this.numDiscs);
-    return result;
+    const isRestored = (rod1Discs.length === this.numDiscs);
+    return isRestored;
   }
   
   cloneTower(tower) {
