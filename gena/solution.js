@@ -206,6 +206,7 @@ class TowerSolver {
     return isAlreadySeen;
   }
 
+  // This method assumes there are 4 rods
   cacheTowerVariations(tower, towerKey234) {
     // 2, 3, 4
     if (towerKey234 === undefined) {
