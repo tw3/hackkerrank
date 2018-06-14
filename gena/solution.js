@@ -1,3 +1,28 @@
+/**
+ * The keys to solving this challenge:
+ * 
+ * 1) Do breadth-first search, keep a running queue of
+ *    the next options at each given step.
+ * 
+ * 2) Cache the rod sequeuences as you encounter them
+ *    including variations of the 2nd, 3rd, and 4th rods.
+ *    e.g. this tower:
+ *      [ x, [1, 2, 3], [4, 5], [6, 7], [8, 9] ]
+ *    ...is equivalent to:
+ *      [ x, [1, 2, 3], [6, 7], [4, 5], [8, 9] ]
+ *    ...and also equivalent to:
+ *      [ x, [1, 2, 3], [4, 5], [8, 9], [6, 7] ]
+ *    ...etc...
+ * 
+ *   See code for cacheTowerVariations()
+ * 
+ * 3) When determining the next options you can skip
+ *    variations that you've seen already.
+ * 
+ * 4) Greedy searching based on the first tower does
+ *    not work.
+ */
+
 class TowerSolver {
 
   constructor(discPositionArray, numRods, debugFlag) {
@@ -24,7 +49,6 @@ class TowerSolver {
       return undefined;
     }
     const numMoves = towerSolution[0];
-    if (this.debugFlag) console.log("numMoves", numMoves);
     return numMoves;
   }
   
