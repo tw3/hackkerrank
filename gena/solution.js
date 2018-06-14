@@ -14,8 +14,6 @@
  *      [ x, [1, 2, 3], [4, 5], [8, 9], [6, 7] ]
  *    ...etc...
  * 
- *   See code for cacheTowerVariations()
- * 
  * 3) When determining the next options you can skip
  *    variations that you've seen already.
  * 
