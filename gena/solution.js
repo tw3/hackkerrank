@@ -136,7 +136,7 @@ class TowerSolver {
       possibleTower[currentRodNum].shift(); // remove top disc
       possibleTower[newRodNum].unshift(currentRodTopDiscNum); // add disc to top of new rod
   
-      // Check if tower has already been seen
+      // Check if new tower has already been seen
       const towerKey = this.getTowerKey(possibleTower);
       if (this.isTowerSeen(towerKey)) {
         continue;
