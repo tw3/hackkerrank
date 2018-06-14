@@ -114,7 +114,8 @@ class TowerSolver {
       const isNewRodEmpty = (newRodDiscs.length === 0);
 
       if (currentRodNum != 1 && newRodNum != 1) {
-        // It is pointless to swap a single length and empty rod for the 2nd, 3rd, and 4th rods
+        // It is pointless to swap a single length rod and an empty rod
+        // for the 2nd, 3rd, and 4th rods
         // e.g. [ x, [y], [3], [] [z] ] -> [ x, [y], [], [3] [z] ]
         if (isNewRodEmpty && currentRodDiscs.length === 1) {
           continue;
