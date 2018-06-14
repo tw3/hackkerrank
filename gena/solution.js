@@ -177,7 +177,7 @@ class TowerSolver {
   getInitialTower() {
       // Initialize rods on tower (no discs yet)
       const initialTower = Array(this.numRods + 1);
-      initialTower[0] = 0; // "Rod" 0 will maintain the number of moves
+      initialTower[0] = 0; // "Rod" 0 will maintain the number of moves aka move counter
       for (let rodNum = 1; rodNum <= this.numRods; rodNum++) {
         initialTower[rodNum] = [];
       }
