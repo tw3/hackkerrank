@@ -190,7 +190,6 @@ class TowerSolver {
         const rodNum = this.discPositionArray[discIdx];
         if (this.debugFlag) console.log(`pushing disc ${discNum} onto rod ${rodNum}`);
         initialTower[rodNum].push(discNum);
-        // if (this.debugFlag) console.log(allRodDiscs);
       }
       if (this.debugFlag) console.log("initialized", initialTower);
       return initialTower;
