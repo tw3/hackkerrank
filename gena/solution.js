@@ -53,8 +53,7 @@ class TowerSolver {
   }
   
   rearrangeTower(initialTower) {
-    const initialTowerKey = this.getTowerKey(initialTower);
-    this.cacheTowerVariations(initialTower, initialTowerKey);
+    this.cacheTowerVariations(initialTower);
 
     const towerQueue = [initialTower];
 
@@ -207,25 +206,29 @@ class TowerSolver {
     return isAlreadySeen;
   }
 
-  cacheTowerVariations(tower, towerKey) {
-    this.cacheTower(towerKey);
-    // 2, 3, 4 -> 3, 2, 4
+  cacheTowerVariations(tower, towerKey234) {
+    // 2, 3, 4
+    if (towerKey234 === undefined) {
+      towerKey234 = this.getTowerKey(tower);
+    }
+    this.cacheTower(towerKey234);
+    // 3, 2, 4
     const towerVariation324 = [0, tower[1], tower[3], tower[2], tower[4]];
     const towerKey324 = this.getTowerKey(towerVariation324);
     this.cacheTower(towerKey324);
-    // 2, 3, 4 -> 2, 4, 3
+    // 2, 4, 3
     const towerVariation243 = [0, tower[1], tower[2], tower[4], tower[3]];
     const towerKey243 = this.getTowerKey(towerVariation243);
     this.cacheTower(towerKey243);
-    // 2, 3, 4 -> 4, 3, 2
+    // 4, 3, 2
     const towerVariation432 = [0, tower[1], tower[4], tower[3], tower[2]];
     const towerKey432 = this.getTowerKey(towerVariation432);
     this.cacheTower(towerKey432);
-    // 2, 3, 4 -> 3, 4, 2
+    // 3, 4, 2
     const towerVariation342 = [0, tower[1], tower[3], tower[4], tower[2]];
     const towerKey342 = this.getTowerKey(towerVariation342);
     this.cacheTower(towerKey342);
-    // 2, 3, 4 -> 4, 2, 3
+    // 4, 2, 3
     const towerVariation423 = [0, tower[1], tower[4], tower[2], tower[3]];
     const towerKey423 = this.getTowerKey(towerVariation423);
     this.cacheTower(towerKey423);
