@@ -201,7 +201,7 @@ class TowerSolver {
 
   isTowerSeen(towerKey) {
     const isAlreadySeen = (this.towersSeen.hasOwnProperty(towerKey));
-    if (false && this.debugFlag && isAlreadySeen) console.log("already seen", possibleTower);
+    if (false && this.debugFlag && isAlreadySeen) console.log("already seen", towerKey);
     return isAlreadySeen;
   }
 
