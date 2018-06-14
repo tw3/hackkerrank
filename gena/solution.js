@@ -154,7 +154,7 @@ class TowerSolver {
         return nextTowerOptions;
       }
 
-      // Add the possible tower to the result array
+      // Add the new tower to the next tower options as possibility
       nextTowerOptions.possible.push(possibleTower);
     }
     return nextTowerOptions;
