@@ -262,7 +262,7 @@ class TowerSolver {
     const towerKey = this.getTowerKey(clonedTower);
     const prevTower = this.towersSeen[towerKey];
     if (prevTower === undefined) {
-      return [];
+      return [tower];
     }
     return [...this.getTowerPath(prevTower), tower];
   }
