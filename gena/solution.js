@@ -289,7 +289,7 @@ if (typeof main === "undefined") {
   if (Array.isArray(result)) {
     console.log("Path:");
     result.forEach(tower => console.log(tower));
-    console.log("Num Moves:", result.length);
+    console.log("Num Moves:", result.length - 1);
   } else {
     console.log(result);
   }
