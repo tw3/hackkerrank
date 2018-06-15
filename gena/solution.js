@@ -232,7 +232,6 @@ class TowerSolver {
     const towerVariation423 = [0, tower[1], tower[4], tower[2], tower[3]];
     const towerKey423 = this.getTowerKey(towerVariation423);
     this.cacheTower(towerKey423);
-
   }
 
   cacheTower(towerKey, prevTower) {
