@@ -31,23 +31,23 @@ class TowerSolver {
     this.towersSeen = {};
   }
 
+  setShouldReturnPath(shouldReturnPath) {
+    this.shouldReturnPath = shouldReturnPath;
+  }
+
   solve() {
     // Get initial tower
     const initialTower = this.getInitialTower();
   
-    let towerSolution;
     const isRestored = this.isTowerRestored(initialTower);
     if (isRestored) {
-      towerSolution = initialTower;
-    } else {
-      towerSolution = this.rearrangeTower(initialTower);
+      const returnValue = getReturnValue(initialTower);
+      return returnValue;
     }
-  
-    if (towerSolution === undefined) {
-      return undefined;
-    }
-    const numMoves = towerSolution[0];
-    return numMoves;
+
+    const towerSolution = this.rearrangeTower(initialTower);
+    const returnValue = this.getReturnValue(towerSolution);
+    return returnValue;
   }
   
   rearrangeTower(initialTower) {
@@ -144,7 +144,7 @@ class TowerSolver {
   
       // Increment move counter and add to towers seen
       possibleTower[0] = currentTower[0] + 1;
-      this.cacheTowerVariations(possibleTower, towerKey);
+      this.cacheTowerVariations(possibleTower, towerKey, currentTower);
   
       // Return early if we found the answer
       const foundAnswer = this.isTowerRestored(possibleTower);
@@ -200,18 +200,18 @@ class TowerSolver {
   }
 
   isTowerSeen(towerKey) {
-    const isAlreadySeen = (this.towersSeen.hasOwnProperty(towerKey));
+    const isAlreadySeen = this.isAlreadySeen(towerKey);
     if (false && this.debugFlag && isAlreadySeen) console.log("already seen", towerKey);
     return isAlreadySeen;
   }
 
   // This method assumes there are 4 rods
-  cacheTowerVariations(tower, towerKey234) {
+  cacheTowerVariations(tower, towerKey234, prevTower) {
     // 2, 3, 4
     if (towerKey234 === undefined) {
       towerKey234 = this.getTowerKey(tower);
     }
-    this.cacheTower(towerKey234);
+    this.cacheTower(towerKey234, prevTower);
     // 3, 2, 4
     const towerVariation324 = [0, tower[1], tower[3], tower[2], tower[4]];
     const towerKey324 = this.getTowerKey(towerVariation324);
@@ -232,10 +232,40 @@ class TowerSolver {
     const towerVariation423 = [0, tower[1], tower[4], tower[2], tower[3]];
     const towerKey423 = this.getTowerKey(towerVariation423);
     this.cacheTower(towerKey423);
+
   }
 
-  cacheTower(towerKey) {
-    this.towersSeen[towerKey] = true;
+  cacheTower(towerKey, prevTower) {
+    if (this.isAlreadySeen(towerKey)) {
+      return;
+    }
+    this.towersSeen[towerKey] = prevTower;
+  }
+
+  isAlreadySeen(towerKey) {
+    return (this.towersSeen.hasOwnProperty(towerKey));
+  }
+
+  getReturnValue(tower) {
+    if (tower === undefined) {
+      return undefined;
+    }
+    if (this.shouldReturnPath) {
+      const towerPath = this.getTowerPath(tower);
+      return towerPath;
+    }
+    const numMoves = tower[0];
+    return numMoves;
+  }
+
+  getTowerPath(tower) {
+    const clonedTower = this.cloneTower(tower);
+    const towerKey = this.getTowerKey(clonedTower);
+    const prevTower = this.towersSeen[towerKey];
+    if (prevTower === undefined) {
+      return [];
+    }
+    return [...this.getTowerPath(prevTower), tower];
   }
 }
 
@@ -245,8 +275,10 @@ if (typeof main === "undefined") {
   a = [1, 3, 3];
   a = [1, 3, 4, 2, 4, 3, 1]; // test case 9
   a = [4, 1, 2, 1, 4, 3, 3, 4, 3, 4]; // test case 11
+  a = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]; // test case 16
   const numRods = 4;
   const towerSolver = new TowerSolver(a, numRods, false);
+  towerSolver.setShouldReturnPath(true);
   
   const startTime = (new Date()).getTime();
   
@@ -255,6 +287,12 @@ if (typeof main === "undefined") {
   const endTime = (new Date()).getTime();
   const numSeconds = (endTime - startTime) / 1000;
   
-  console.log(result);
+  if (Array.isArray(result)) {
+    console.log("Path:");
+    result.forEach(tower => console.log(tower));
+    console.log("Num Moves:", result.length);
+  } else {
+    console.log(result);
+  }
   console.log("It took", numSeconds, "seconds");
 }
